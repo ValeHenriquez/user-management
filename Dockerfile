@@ -18,7 +18,7 @@ CMD [ "npm", "start" ]
 
 # Establecemos la variable de entorno para la base de datos
 ENV DATABASE_PATH="./database/sqlite.db"
-ENV PORT=8000
+ENV PORT=80
 
 # Exponemos el puerto que usa nuestra aplicación
-EXPOSE 8000 3000
+EXPOSE 80 22
