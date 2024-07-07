@@ -27,7 +27,7 @@ node {
     stage('Copy files to Kubernetes server') {
         sshagent(['ansible_demo']) {
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.140"
-            sh 'scp -r /var/lib/jenkins/workspace/pipeline-devops/* ubuntu@172.31.16.140:/home/ubuntu'
+            sh 'scp -r /var/lib/jenkins/workspace/pipeline-branches/* ubuntu@172.31.16.140:/home/ubuntu'
         }
     }
     
