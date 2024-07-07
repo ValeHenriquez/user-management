@@ -4,6 +4,7 @@ node {
         script {
             env.BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
         }
+        echo "Branch name: ${env.BRANCH_NAME}"
     }
     
     stage('Docker Build image') {
@@ -26,7 +27,7 @@ node {
     stage('Copy files to Kubernetes server') {
         sshagent(['ansible_demo']) {
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.140"
-            sh 'scp -r /var/lib/jenkins/workspace/pipeline-test/* ubuntu@172.31.16.140:/home/ubuntu'
+            sh 'scp -r /var/lib/jenkins/workspace/pipeline-devops/* ubuntu@172.31.16.140:/home/ubuntu'
         }
     }
     
