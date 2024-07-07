@@ -1,4 +1,9 @@
 node {
+
+    stage('Init'){
+        echo 'Starting pipeline'
+    }
+
     stage('Git checkout') {
         git 'https://github.com/ValeHenriquez/user-management.git'
         script {
@@ -8,26 +13,26 @@ node {
     }
     
     stage('Docker Build image') {
-        sh 'docker image build -t pipeline-branches:v1.$BUILD_ID .'
+        sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
     }
     
     stage('Docker Image tagging') {
-        sh 'docker image tag pipeline-branches:v1.$BUILD_ID valehenriquez/pipeline-branches:v1.$BUILD_ID'
-        sh 'docker image tag pipeline-branches:v1.$BUILD_ID valehenriquez/pipeline-branches:latest'
+        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID valehenriquez/$JOB_NAME:v1.$BUILD_ID'
+        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID valehenriquez/$JOB_NAME:latest'
     }
     
     stage('Push docker images to docker hub') {
         withCredentials([string(credentialsId: 'dockehub_password', variable: 'dockehub_password')]) {
             sh "docker login -u valehenriquez -p ${dockehub_password}"
-            sh 'docker image push valehenriquez/pipeline-branches:v1.$BUILD_ID'
-            sh 'docker image push valehenriquez/pipeline-branches:latest'
+            sh 'docker image push valehenriquez/$JOB_NAME:v1.$BUILD_ID'
+            sh 'docker image push valehenriquez/$JOB_NAME:latest'
         }
     }
     
     stage('Copy files to Kubernetes server') {
         sshagent(['ansible_demo']) {
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.140"
-            sh 'scp -r /var/lib/jenkins/workspace/pipeline-branches/* ubuntu@172.31.16.140:/home/ubuntu'
+            sh 'scp -r /var/lib/jenkins/workspace/pipeline-devops/* ubuntu@172.31.16.140:/home/ubuntu'
         }
     }
     
