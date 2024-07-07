@@ -36,6 +36,12 @@ export class UserService {
         email: 'charlie.brown@example.com',
         password: 'mypassword789',
       },
+      {
+        id: 4,
+        name: 'Charlie Brown asdas',
+        email: 'charlie.brown@example.com',
+        password: 'mypassword789',
+      },
     ];
   }
 
