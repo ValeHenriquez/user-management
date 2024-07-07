@@ -21,4 +21,4 @@ ENV DATABASE_PATH="./database/sqlite.db"
 ENV PORT=80
 
 # Exponemos el puerto que usa nuestra aplicación
-EXPOSE 80 22
+EXPOSE 80
