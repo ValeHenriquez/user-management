@@ -6,9 +6,9 @@ metadata:
     app: devops
 spec:
   ports:
-    - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
-      targetPort: 8080 # The port exposed by the service
+    - port: 8080                               
+      targetPort: 80                    
+      nodePort: 31200
   selector:
     app: devops                    
-  type: NodePort
+  type: LoadBalancer

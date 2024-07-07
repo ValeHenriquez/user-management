@@ -11,6 +11,10 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalFilters(new AllExceptionsFilter());
 
-  await app.listen(80);
+  const port = 80; // Puerto en el que se va a escuchar
+
+  await app.listen(port);
+  console.log(`Aplicación Nest.js corriendo en el puerto ${port}`);
 }
+
 bootstrap();
