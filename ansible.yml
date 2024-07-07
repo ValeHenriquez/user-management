@@ -1,26 +1,7 @@
 - hosts: all
-  become: false
-  tasks:
-    - name: Start minikube
-      command: minikube start
-      register: minikube_start
-      changed_when: "'Done! kubectl is now configured' in minikube_start.stdout"
-
-    - name: Check minikube status
-      command: minikube status
-      register: minikube_status
-      changed_when: False
-
-    - name: Ensure minikube is running
-      fail:
-        msg: "Minikube is not running properly"
-      when: minikube_status.stdout.find('Running') == -1
-
-    - name: Set kubectl context to minikube
-      command: kubectl config use-context minikube
-
-    - name: Create new deployment
-      command: kubectl apply -f /home/ubuntu/Deployment.yml --validate=false
-
-    - name: Create new service
-      command: kubectl apply -f /home/ubuntu/Service.yml --validate=false
+  become: true
+  tasks: 
+     - name: create new deployment
+       command: kubectl apply -f /home/ubuntu/Deployment.yml --validate=false
+     - name: create new service
+       command: kubectl apply -f /home/ubuntu/Service.yml --validate=false
