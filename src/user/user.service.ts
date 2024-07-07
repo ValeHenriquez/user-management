@@ -17,7 +17,26 @@ export class UserService {
   }
 
   getAllUsers() {
-    return this.userRepository.getAllUsers();
+    return [
+      {
+        id: 1,
+        name: 'Alice Johnson',
+        email: 'alice.johnson@example.com',
+        password: 'password123',
+      },
+      {
+        id: 2,
+        name: 'Bob Smith',
+        email: 'bob.smith@example.com',
+        password: 'securepass456',
+      },
+      {
+        id: 3,
+        name: 'Charlie Brown',
+        email: 'charlie.brown@example.com',
+        password: 'mypassword789',
+      },
+    ];
   }
 
   getUser(id: number) {
